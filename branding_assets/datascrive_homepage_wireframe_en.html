@@ -1,0 +1,567 @@
+
+<style>
+  :root {
+    --navy: #1C3054;
+    --teal-deep: #2A8FA0;
+    --teal: #4EC4C4;
+    --amber: #F0A830;
+    --white: #F7F8FC;
+    --placeholder: #D6D9DF;
+    --placeholder-dark: #B0B5BF;
+    --text-line: #C8CDD6;
+    --section-gap: 12px;
+    --inner-pad: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body-wf { display: block; font-family: var(--font-sans); padding: 1rem 0 2rem; }
+
+  .page-frame {
+    border: 1.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    background: var(--color-background-primary);
+  }
+
+  .section {
+    border-bottom: 1px dashed var(--color-border-tertiary);
+    padding: var(--inner-pad);
+    position: relative;
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .label-hero { background: var(--navy); color: #fff; }
+  .label-prob { background: #FEF3E2; color: #92530A; border: 0.5px solid #F0A830; }
+  .label-sol  { background: #E1F4F7; color: #185A6B; border: 0.5px solid var(--teal-deep); }
+  .label-svc  { background: #E6EDF7; color: #1C3054; border: 0.5px solid #8AAAD0; }
+  .label-proc { background: #EAF3DE; color: #3B6D11; border: 0.5px solid #97C459; }
+  .label-obj  { background: #F1EFE8; color: #444441; border: 0.5px solid #B4B2A9; }
+  .label-cta  { background: var(--amber); color: #5A3A00; }
+
+  .note {
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  .ph-box {
+    background: var(--placeholder);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--placeholder-dark);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .ph-line {
+    height: 8px;
+    background: var(--text-line);
+    border-radius: 4px;
+    margin-bottom: 5px;
+  }
+  .ph-line.short { width: 55%; }
+  .ph-line.mid   { width: 75%; }
+  .ph-line.full  { width: 100%; }
+  .ph-line.tiny  { width: 35%; height: 6px; }
+
+  .ph-headline {
+    height: 18px;
+    background: var(--navy);
+    opacity: 0.18;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .ph-headline.w80 { width: 80%; }
+  .ph-headline.w65 { width: 65%; }
+  .ph-headline.w95 { width: 95%; }
+  .ph-headline.w75 { width: 75%; }
+
+  .ph-cta {
+    height: 28px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 0 14px;
+  }
+  .ph-cta.primary   { background: var(--navy); color: #fff; }
+  .ph-cta.secondary { background: transparent; border: 1px solid var(--navy); color: var(--navy); font-size: 10px; }
+  .ph-cta.amber     { background: var(--amber); color: #5A3A00; }
+
+  .grid-2     { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3     { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .grid-60-40 { display: grid; grid-template-columns: 60fr 40fr; gap: 12px; }
+  .grid-50-50 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col { display: flex; flex-direction: column; gap: 6px; }
+
+  .card-wf {
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 10px;
+    background: var(--color-background-secondary);
+  }
+  .card-wf.featured { border: 1.5px solid var(--teal-deep); }
+
+  .nav-wf {
+    background: var(--color-background-primary);
+    border-bottom: 0.5px solid var(--color-border-secondary);
+    padding: 10px var(--inner-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { display: flex; gap: 6px; align-items: center; }
+  .nav-logo-box { width: 24px; height: 24px; border-radius: 4px; background: var(--navy); }
+  .nav-logo-text { font-size: 12px; font-weight: 500; color: var(--navy); }
+  .nav-links { display: flex; gap: 12px; }
+  .nav-link  { font-size: 10px; color: var(--color-text-secondary); }
+  .nav-cta-pill { background: var(--navy); color: #fff; font-size: 10px; padding: 4px 10px; border-radius: 4px; }
+
+  .section-hero    { background: var(--white); padding: 20px var(--inner-pad); }
+  .section-teal-bg { background: #EAF7F8; }
+
+  .step-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--teal-deep);
+    color: #fff; font-size: 10px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+
+  .icp-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+  .icp-ecom  { background: #E1F4F7; color: #185A6B; }
+  .icp-local { background: #FEF3E2; color: #92530A; }
+
+  .annotation-bar {
+    background: #F7F8FC;
+    border-left: 2.5px solid var(--teal-deep);
+    padding: 6px 10px;
+    margin-top: 10px;
+    border-radius: 0 4px 4px 0;
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  .teal-accent-line {
+    width: 28px; height: 2px;
+    background: var(--teal);
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+</style>
+
+<body-wf>
+
+<div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 12px; padding-left: 2px;">
+  Wireframe — DataScrive Homepage &nbsp;/&nbsp; No social proof version &nbsp;/&nbsp; Goal: book a discovery call
+</div>
+
+<div class="page-frame">
+
+  <!-- NAV -->
+  <div class="nav-wf">
+    <div class="nav-logo">
+      <div class="nav-logo-box"></div>
+      <span class="nav-logo-text">DataScrive</span>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link">The Problem</span>
+      <span class="nav-link">How It Works</span>
+      <span class="nav-link">Services</span>
+      <span class="nav-link">Process</span>
+    </div>
+    <span class="nav-cta-pill">Book a Call</span>
+  </div>
+
+  <!-- SECTION 1 — HERO -->
+  <div class="section section-hero">
+    <div class="section-label label-hero">01 — Hero</div>
+    <div class="note">Layout: left (copy) + right (optional supporting visual). Single primary CTA.</div>
+    <div class="grid-60-40" style="align-items: center; gap: 20px;">
+      <div class="col" style="gap: 8px;">
+        <div class="teal-accent-line"></div>
+        <div class="ph-headline w95" style="height: 22px;"></div>
+        <div class="ph-headline w80" style="height: 22px;"></div>
+        <div style="margin-top: 2px;">
+          <div class="ph-line full"></div>
+          <div class="ph-line mid"></div>
+          <div class="ph-line short"></div>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 8px; align-items: center;">
+          <div class="ph-cta primary">Book a Free Call →</div>
+          <span style="font-size: 10px; color: var(--color-text-tertiary);">no cost, no commitment</span>
+        </div>
+        <div style="display: flex; gap: 16px; margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--color-border-tertiary);">
+          <div class="col" style="gap: 3px;">
+            <div style="font-size: 16px; font-weight: 500; color: var(--navy); opacity: 0.25;">—</div>
+            <div class="ph-line tiny"></div>
+          </div>
+          <div class="col" style="gap: 3px;">
+            <div style="font-size: 16px; font-weight: 500; color: var(--navy); opacity: 0.25;">—</div>
+            <div class="ph-line tiny"></div>
+          </div>
+          <div class="col" style="gap: 3px;">
+            <div style="font-size: 16px; font-weight: 500; color: var(--navy); opacity: 0.25;">—</div>
+            <div class="ph-line tiny"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ph-box" style="height: 140px; border-radius: 8px;">Visual / analytics setup illustration</div>
+      </div>
+    </div>
+    <div class="annotation-bar">
+      With no social proof available, the 3 micro-stats below the CTA should be facts about the process or the problem (e.g. "48h to your initial diagnosis") — not client metrics.
+    </div>
+  </div>
+
+  <!-- SECTION 2 — PROBLEM -->
+  <div class="section">
+    <div class="section-label label-prob">02 — The Problem</div>
+    <div class="note">Two ICPs, two distinct pain points. 2-column layout to serve both without being generic.</div>
+    <div style="text-align: center; margin-bottom: 14px;">
+      <div class="ph-headline w65" style="margin: 0 auto 6px;"></div>
+      <div class="ph-line mid" style="margin: 0 auto;"></div>
+      <div class="ph-line short" style="margin: 3px auto 0;"></div>
+    </div>
+    <div class="grid-2">
+      <div class="card-wf">
+        <div class="icp-badge icp-ecom">Online store</div>
+        <div class="ph-headline w80" style="height: 14px; margin-bottom: 8px;"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--color-border-tertiary);">
+          <div class="ph-line full" style="background: #F4C0A0;"></div>
+          <div class="ph-line mid" style="background: #F4C0A0;"></div>
+        </div>
+      </div>
+      <div class="card-wf">
+        <div class="icp-badge icp-local">Local / service business</div>
+        <div class="ph-headline w80" style="height: 14px; margin-bottom: 8px;"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--color-border-tertiary);">
+          <div class="ph-line full" style="background: #F4C0A0;"></div>
+          <div class="ph-line mid" style="background: #F4C0A0;"></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 12px;">
+      <div class="ph-line short" style="margin: 0 auto; background: #D4A060;"></div>
+      <div class="note" style="margin-top: 4px; text-align: center;">Closing line that unifies both ICPs → universal hook into the next section</div>
+    </div>
+    <div class="annotation-bar">
+      Each column speaks directly to one ICP. The visitor recognizes their own situation. At the bottom, a single line ties both together and opens the door to the solution section.
+    </div>
+  </div>
+
+  <!-- SECTION 3 — SOLUTION / POSITIONING -->
+  <div class="section section-teal-bg">
+    <div class="section-label label-sol">03 — Solution + Positioning</div>
+    <div class="note">What DataScrive is — and what it isn't. Centered layout, declarative impact. This is the differentiation section.</div>
+    <div style="text-align: center; margin-bottom: 16px; padding: 0 20px;">
+      <div class="ph-headline w80" style="margin: 0 auto 6px;"></div>
+      <div class="ph-headline w65" style="margin: 0 auto 10px;"></div>
+      <div class="ph-line mid" style="margin: 0 auto;"></div>
+      <div class="ph-line short" style="margin: 3px auto 0;"></div>
+    </div>
+    <div class="grid-3" style="margin-bottom: 12px;">
+      <div class="card-wf" style="text-align: center; background: var(--color-background-primary);">
+        <div class="ph-box" style="height: 32px; width: 32px; border-radius: 50%; margin: 0 auto 8px; background: #C8DFF0;"></div>
+        <div class="ph-headline w95" style="height: 12px; margin-bottom: 5px;"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+      </div>
+      <div class="card-wf" style="text-align: center; background: var(--color-background-primary);">
+        <div class="ph-box" style="height: 32px; width: 32px; border-radius: 50%; margin: 0 auto 8px; background: #C8DFF0;"></div>
+        <div class="ph-headline w95" style="height: 12px; margin-bottom: 5px;"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+      </div>
+      <div class="card-wf" style="text-align: center; background: var(--color-background-primary);">
+        <div class="ph-box" style="height: 32px; width: 32px; border-radius: 50%; margin: 0 auto 8px; background: #C8DFF0;"></div>
+        <div class="ph-headline w95" style="height: 12px; margin-bottom: 5px;"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+      </div>
+    </div>
+    <div class="annotation-bar">
+      3 key differentiators — not 6. "We are not X, we are Y" positioning replaces the absence of testimonials with propositional clarity. Soft teal background marks the tonal shift from problem to solution.
+    </div>
+  </div>
+
+  <!-- SECTION 4 — SERVICES -->
+  <div class="section">
+    <div class="section-label label-svc">04 — Services</div>
+    <div class="note">Only 2 real products: DataScrive Audit + DataScrive Maintain. No artificial tiers.</div>
+    <div style="text-align: center; margin-bottom: 14px;">
+      <div class="ph-headline w65" style="margin: 0 auto 6px;"></div>
+      <div class="ph-line mid" style="margin: 0 auto;"></div>
+    </div>
+    <div class="grid-2" style="gap: 14px;">
+      <div class="card-wf featured" style="background: var(--color-background-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+          <div>
+            <div style="font-size: 9px; font-weight: 500; color: var(--teal-deep); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px;">Step 1</div>
+            <div class="ph-headline" style="width: 120px; height: 14px;"></div>
+          </div>
+          <div style="background: #E1F4F7; color: var(--teal-deep); font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: 500;">One-time project</div>
+        </div>
+        <div class="ph-line full"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+        <div style="margin-top: 10px;">
+          <div class="ph-line tiny" style="margin-bottom: 5px;"></div>
+          <div class="ph-line tiny" style="margin-bottom: 5px;"></div>
+          <div class="ph-line tiny"></div>
+        </div>
+        <div class="ph-cta primary" style="margin-top: 12px; width: 100%; justify-content: center; height: 30px;">Request an Audit →</div>
+      </div>
+      <div class="card-wf" style="background: var(--color-background-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+          <div>
+            <div style="font-size: 9px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px;">Step 2</div>
+            <div class="ph-headline" style="width: 120px; height: 14px;"></div>
+          </div>
+          <div style="background: #F1EFE8; color: #5F5E5A; font-size: 9px; padding: 2px 8px; border-radius: 10px; font-weight: 500;">Monthly retainer</div>
+        </div>
+        <div class="ph-line full"></div>
+        <div class="ph-line full"></div>
+        <div class="ph-line mid"></div>
+        <div style="margin-top: 10px;">
+          <div class="ph-line tiny" style="margin-bottom: 5px;"></div>
+          <div class="ph-line tiny" style="margin-bottom: 5px;"></div>
+          <div class="ph-line tiny"></div>
+        </div>
+        <div class="ph-cta secondary" style="margin-top: 12px; width: 100%; justify-content: center; height: 30px;">Learn more</div>
+      </div>
+    </div>
+    <div class="annotation-bar">
+      Audit highlighted as "Step 1" because it's the natural entry point. Maintain shown as the logical continuation — not a competing product. Sequential relationship, not a tier ladder.
+    </div>
+  </div>
+
+  <!-- SECTION 5 — PROCESS + DELIVERABLES -->
+  <div class="section" style="background: var(--color-background-secondary);">
+    <div class="section-label label-proc">05 — How It Works + What You Get</div>
+    <div class="note">Process and deliverables in one section. Reduces perceived risk. Partially replaces social proof.</div>
+    <div class="grid-50-50" style="gap: 20px;">
+      <div>
+        <div class="ph-headline w80" style="margin-bottom: 8px;"></div>
+        <div class="ph-line mid" style="margin-bottom: 12px;"></div>
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="ph-headline" style="width: 90px; height: 12px; margin-bottom: 4px;"></div>
+            <div class="ph-line full"></div>
+            <div class="ph-line mid"></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="ph-headline" style="width: 90px; height: 12px; margin-bottom: 4px;"></div>
+            <div class="ph-line full"></div>
+            <div class="ph-line mid"></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="ph-headline" style="width: 90px; height: 12px; margin-bottom: 4px;"></div>
+            <div class="ph-line full"></div>
+            <div class="ph-line mid"></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="ph-headline" style="width: 90px; height: 12px; margin-bottom: 4px;"></div>
+            <div class="ph-line full"></div>
+            <div class="ph-line mid"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ph-headline w80" style="margin-bottom: 8px;"></div>
+        <div class="ph-line mid" style="margin-bottom: 12px;"></div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="card-wf" style="display: flex; gap: 8px; align-items: center;">
+            <div class="ph-box" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 4px;"></div>
+            <div class="col" style="flex: 1; gap: 3px;">
+              <div class="ph-headline" style="width: 80px; height: 10px;"></div>
+              <div class="ph-line full" style="height: 6px;"></div>
+            </div>
+          </div>
+          <div class="card-wf" style="display: flex; gap: 8px; align-items: center;">
+            <div class="ph-box" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 4px;"></div>
+            <div class="col" style="flex: 1; gap: 3px;">
+              <div class="ph-headline" style="width: 80px; height: 10px;"></div>
+              <div class="ph-line full" style="height: 6px;"></div>
+            </div>
+          </div>
+          <div class="card-wf" style="display: flex; gap: 8px; align-items: center;">
+            <div class="ph-box" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 4px;"></div>
+            <div class="col" style="flex: 1; gap: 3px;">
+              <div class="ph-headline" style="width: 80px; height: 10px;"></div>
+              <div class="ph-line full" style="height: 6px;"></div>
+            </div>
+          </div>
+          <div class="card-wf" style="display: flex; gap: 8px; align-items: center;">
+            <div class="ph-box" style="width: 28px; height: 28px; flex-shrink: 0; border-radius: 4px;"></div>
+            <div class="col" style="flex: 1; gap: 3px;">
+              <div class="ph-headline" style="width: 80px; height: 10px;"></div>
+              <div class="ph-line full" style="height: 6px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-bar">
+      Process and deliverables together form the strongest available trust argument without testimonials. "Here is exactly what we will do, and here is exactly what you will have at the end" is the most effective risk reversal possible at this stage.
+    </div>
+  </div>
+
+  <!-- SECTION 6 — OBJECTION HANDLING -->
+  <div class="section">
+    <div class="section-label label-obj">06 — Objection Handling</div>
+    <div class="note">Critical section without social proof. Answers the 4–5 doubts that block conversion.</div>
+    <div style="text-align: center; margin-bottom: 14px;">
+      <div class="ph-headline w65" style="margin: 0 auto 6px;"></div>
+      <div class="ph-line short" style="margin: 0 auto;"></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div class="card-wf" style="display: flex; gap: 10px; align-items: flex-start; background: var(--color-background-primary);">
+        <div style="color: var(--teal-deep); font-weight: 500; font-size: 12px; flex-shrink: 0;">Q</div>
+        <div style="flex: 1;">
+          <div class="ph-headline" style="width: 75%; height: 11px; margin-bottom: 5px;"></div>
+          <div class="ph-line full"></div>
+          <div class="ph-line mid"></div>
+        </div>
+      </div>
+      <div class="card-wf" style="display: flex; gap: 10px; align-items: flex-start; background: var(--color-background-primary);">
+        <div style="color: var(--teal-deep); font-weight: 500; font-size: 12px; flex-shrink: 0;">Q</div>
+        <div style="flex: 1;">
+          <div class="ph-headline" style="width: 75%; height: 11px; margin-bottom: 5px;"></div>
+          <div class="ph-line full"></div>
+          <div class="ph-line mid"></div>
+        </div>
+      </div>
+      <div class="card-wf" style="display: flex; gap: 10px; align-items: flex-start; background: var(--color-background-primary);">
+        <div style="color: var(--teal-deep); font-weight: 500; font-size: 12px; flex-shrink: 0;">Q</div>
+        <div style="flex: 1;">
+          <div class="ph-headline" style="width: 75%; height: 11px; margin-bottom: 5px;"></div>
+          <div class="ph-line full"></div>
+          <div class="ph-line mid"></div>
+        </div>
+      </div>
+      <div class="card-wf" style="display: flex; gap: 10px; align-items: flex-start; background: var(--color-background-primary);">
+        <div style="color: var(--teal-deep); font-weight: 500; font-size: 12px; flex-shrink: 0;">Q</div>
+        <div style="flex: 1;">
+          <div class="ph-headline" style="width: 75%; height: 11px; margin-bottom: 5px;"></div>
+          <div class="ph-line full"></div>
+          <div class="ph-line mid"></div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-bar">
+      4 proposed questions: How long does it take? / Do I need technical knowledge? / What if I already have analytics installed? / Are there lock-in contracts? — drawn directly from ICP fears.
+    </div>
+  </div>
+
+  <!-- SECTION 7 — FINAL CTA -->
+  <div class="section" style="background: var(--navy); padding: 24px var(--inner-pad);">
+    <div class="section-label label-cta">07 — Final CTA</div>
+    <div class="note" style="color: rgba(255,255,255,0.5);">Dark Navy background. Closing headline + lightweight form (max 3 fields) + visible risk reversals.</div>
+    <div class="grid-50-50" style="gap: 24px; align-items: flex-start; margin-top: 8px;">
+      <div class="col" style="gap: 8px;">
+        <div class="ph-headline w95" style="opacity: 0.35; background: white;"></div>
+        <div class="ph-headline w75" style="opacity: 0.35; background: white;"></div>
+        <div style="margin-top: 6px;">
+          <div class="ph-line full" style="background: rgba(255,255,255,0.2);"></div>
+          <div class="ph-line mid" style="background: rgba(255,255,255,0.2);"></div>
+        </div>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 5px;">
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--teal); flex-shrink: 0;"></div>
+            <div class="ph-line" style="width: 140px; height: 7px; background: rgba(255,255,255,0.2);"></div>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--teal); flex-shrink: 0;"></div>
+            <div class="ph-line" style="width: 120px; height: 7px; background: rgba(255,255,255,0.2);"></div>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--teal); flex-shrink: 0;"></div>
+            <div class="ph-line" style="width: 130px; height: 7px; background: rgba(255,255,255,0.2);"></div>
+          </div>
+        </div>
+      </div>
+      <div style="background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: var(--border-radius-lg); padding: 14px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <div class="ph-line tiny" style="background: rgba(255,255,255,0.25); margin-bottom: 4px;"></div>
+            <div style="height: 28px; background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.2); border-radius: 4px;"></div>
+          </div>
+          <div>
+            <div class="ph-line tiny" style="background: rgba(255,255,255,0.25); margin-bottom: 4px;"></div>
+            <div style="height: 28px; background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.2); border-radius: 4px;"></div>
+          </div>
+          <div>
+            <div class="ph-line tiny" style="background: rgba(255,255,255,0.25); margin-bottom: 4px;"></div>
+            <div style="height: 28px; background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.2); border-radius: 4px;"></div>
+          </div>
+          <div class="ph-cta amber" style="width: 100%; justify-content: center; height: 32px; margin-top: 4px; border-radius: 4px;">
+            Book a Free Call →
+          </div>
+          <div style="text-align: center; font-size: 9px; color: rgba(255,255,255,0.4);">No contracts. No cost. Just 30 minutes.</div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-bar" style="border-left-color: var(--teal); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);">
+      Form reduced to 3 fields (Name, Email, Platform). The open-ended question is removed — it's friction that doesn't pay off at this stage. Risk reversal stays visible directly below the button.
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top: 14px; padding: 10px 12px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary);">
+  <div style="font-size: 11px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px;">Sections removed from the current version</div>
+  <div style="font-size: 10px; color: var(--color-text-secondary); line-height: 1.8;">
+    <span style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 4px; padding: 1px 6px; margin-right: 6px;">The Bigger Picture</span> Confusing in a mid-page position — the "foundation first" argument belongs in the hero or services copy, not as a standalone section.<br>
+    <span style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: 4px; padding: 1px 6px; margin-right: 6px; margin-top: 4px; display: inline-block;">Results / Numbers</span> Without a real client base, this section is either empty or requires invented data. Remove until real cases are available.
+  </div>
+</div>
+
+</body-wf>

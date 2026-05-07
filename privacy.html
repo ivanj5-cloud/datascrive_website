@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — DataScrive</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:        #1C3054;
+      --navy-deep:   #0F1F3D;
+      --teal-deep:   #2A8FA0;
+      --teal:        #4EC4C4;
+      --cream:       #F7F8FC;
+      --ink:         #0E1A2C;
+      --ink-soft:    #4A5772;
+      --ink-mute:    #7B879C;
+      --line:        #E5E7EB;
+      --line-soft:   #EEF0F4;
+      --font-display: 'Fraunces', ui-serif, Georgia, serif;
+      --font-sans:    'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-mono:    'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --ease-spring:  cubic-bezier(.2,.8,.2,1);
+      --ease-out:     cubic-bezier(.16,1,.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-feature-settings: "ss01", "cv11";
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 720px) { .container { padding: 0 22px; } }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      background: rgba(247,248,252,0.78);
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 120px;
+    }
+    .logo {
+      display: inline-flex; align-items: center; height: 92px;
+      transition: transform .35s var(--ease-spring);
+    }
+    .logo img { height: 100%; width: auto; display: block; image-rendering: -webkit-optimize-contrast; transform: translateY(-8px); }
+    .logo:hover { transform: translateY(-1px); }
+    .nav-links {
+      display: flex; gap: 30px; font-size: 14px; color: var(--ink-soft);
+    }
+    .nav-links a { position: relative; transition: color .25s var(--ease-out); }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 100%; bottom: -6px;
+      height: 1.5px; background: var(--teal-deep);
+      transition: right .35s var(--ease-spring);
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-links a:hover::after { right: 0; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--navy); color: #fff; padding: 10px 18px;
+      border-radius: 999px; font-size: 13.5px; font-weight: 500;
+      letter-spacing: -0.005em;
+      transition: transform .25s var(--ease-spring), box-shadow .25s var(--ease-out), background .25s;
+      box-shadow: 0 8px 20px -10px rgba(28,48,84,.5);
+    }
+    .nav-cta:hover { transform: translateY(-1px); background: var(--navy-deep); box-shadow: 0 14px 26px -12px rgba(28,48,84,.55); }
+    @media (max-width: 820px) { .nav-links { display: none; } }
+
+    /* Page hero */
+    .page-hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal-deep); margin: 0 0 18px;
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-weight: 360; letter-spacing: -0.035em; line-height: 1.05;
+      font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+      color: var(--navy); font-size: clamp(36px, 5vw, 56px);
+      margin: 0 0 16px;
+    }
+    .page-meta {
+      font-size: 13.5px; color: var(--ink-mute);
+      font-family: var(--font-mono); letter-spacing: .04em;
+    }
+
+    /* Content */
+    .legal-body {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+      padding: 64px 0 96px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .legal-body { grid-template-columns: 1fr; gap: 40px; }
+      .legal-toc { display: none; }
+    }
+
+    /* TOC sidebar */
+    .legal-toc {
+      position: sticky; top: 140px;
+    }
+    .toc-label {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--ink-mute); margin: 0 0 14px;
+    }
+    .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .toc-list a {
+      font-size: 13px; color: var(--ink-soft);
+      transition: color .2s; padding-left: 10px;
+      border-left: 2px solid transparent;
+    }
+    .toc-list a:hover { color: var(--navy); border-left-color: var(--teal); }
+
+    /* Article */
+    .legal-article h2 {
+      font-family: var(--font-display);
+      font-weight: 400; font-size: 22px; letter-spacing: -0.02em;
+      color: var(--navy); margin: 52px 0 14px; padding-top: 52px;
+      border-top: 1px solid var(--line-soft);
+      font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 0;
+    }
+    .legal-article h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+    .legal-article p {
+      font-size: 15.5px; line-height: 1.75; color: var(--ink-soft);
+      margin: 0 0 18px;
+    }
+    .legal-article ul {
+      padding-left: 20px; margin: 0 0 18px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .legal-article li { font-size: 15px; line-height: 1.65; color: var(--ink-soft); }
+    .legal-article strong { color: var(--ink); font-weight: 500; }
+    .legal-article a { color: var(--teal-deep); text-decoration: underline; text-decoration-color: rgba(42,143,160,.3); }
+    .legal-article a:hover { text-decoration-color: var(--teal-deep); }
+
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.55);
+      padding: 36px 0;
+      font-size: 13.5px;
+    }
+    .foot-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .foot-logo {
+      display: inline-flex; align-items: center;
+      font-family: var(--font-display);
+      font-weight: 400; font-size: 18px; letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .foot-logo em { font-style: normal; color: var(--teal); }
+    .foot-inner a:hover { color: var(--teal); }
+    .foot-links { display: flex; gap: 22px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <img src="branding_assets/DataScrive_ Logo.png" alt="DataScrive" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html#problem">The Problem</a>
+        <a href="index.html#solution">Our Solution</a>
+        <a href="index.html#services">Our Services</a>
+        <a href="index.html#faqs">FAQs</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <a href="https://calendly.com/contact-datascrive/30min" target="_blank" rel="noopener" class="nav-cta">
+        Book a Call
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+      <div class="page-hero">
+        <p class="page-eyebrow">Legal</p>
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-meta">Last updated: May 2026 &nbsp;·&nbsp; Effective: May 2026</p>
+      </div>
+
+      <div class="legal-body">
+        <!-- TOC -->
+        <aside class="legal-toc">
+          <p class="toc-label">On this page</p>
+          <ul class="toc-list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#data-collected">Data we collect</a></li>
+            <li><a href="#how-used">How we use it</a></li>
+            <li><a href="#sharing">Sharing & disclosure</a></li>
+            <li><a href="#retention">Retention</a></li>
+            <li><a href="#your-rights">Your rights</a></li>
+            <li><a href="#cookies">Cookies</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#contact">Contact us</a></li>
+          </ul>
+        </aside>
+
+        <!-- Article -->
+        <article class="legal-article">
+
+          <h2 id="overview">Overview</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. DataScrive ("we", "us", "our") is committed to protecting the privacy of visitors to our website and clients who use our analytics consulting services. This policy explains what information we collect, how we use it, and your rights regarding that information.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. By using our website or engaging our services, you agree to the practices described in this Privacy Policy. If you do not agree, please discontinue use of our website.</p>
+
+          <h2 id="data-collected">Data we collect</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We may collect the following categories of information depending on how you interact with us:</p>
+          <ul>
+            <li><strong>Contact information</strong> — name, email address, and any details you provide when filling out our contact or booking forms.</li>
+            <li><strong>Usage data</strong> — pages visited, time on site, referral source, and browser/device type, collected via analytics tools.</li>
+            <li><strong>Client project data</strong> — when you engage our services, we may access analytics configurations (e.g., GA4, Google Tag Manager) solely to perform the agreed scope of work.</li>
+            <li><strong>Communications</strong> — the content of emails, messages, or calls you send us.</li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We do not knowingly collect personal information from individuals under the age of 16.</p>
+
+          <h2 id="how-used">How we use it</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We use the information we collect for the following purposes:</p>
+          <ul>
+            <li>To respond to enquiries and provide the services described on this site.</li>
+            <li>To deliver, improve, and administer our consulting engagements.</li>
+            <li>To send transactional emails related to your project or booking.</li>
+            <li>To understand how visitors use our website so we can improve it.</li>
+            <li>To comply with legal obligations where applicable.</li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We will not use your data for automated decision-making or profiling without your explicit consent.</p>
+
+          <h2 id="sharing">Sharing & disclosure</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We do not sell, rent, or trade your personal information. We may share data only in the following circumstances:</p>
+          <ul>
+            <li><strong>Service providers</strong> — third-party tools we use to operate our business (e.g., scheduling software, email providers). These are bound by confidentiality agreements.</li>
+            <li><strong>Legal requirements</strong> — if required by law, court order, or governmental authority.</li>
+            <li><strong>Business transfers</strong> — in the event of a merger or acquisition, your data may be transferred to the successor entity, who will be bound by this policy.</li>
+          </ul>
+
+          <h2 id="retention">Retention</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We retain personal data only as long as necessary for the purposes described above, or as required by applicable law. Contact form submissions are retained for up to 24 months. Client project data is deleted or returned to the client upon project completion, unless otherwise agreed in writing.</p>
+
+          <h2 id="your-rights">Your rights</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Depending on your location, you may have the following rights regarding your personal data:</p>
+          <ul>
+            <li>The right to access and receive a copy of the data we hold about you.</li>
+            <li>The right to rectify inaccurate or incomplete data.</li>
+            <li>The right to request deletion of your data ("right to be forgotten").</li>
+            <li>The right to restrict or object to processing of your data.</li>
+            <li>The right to data portability.</li>
+            <li>The right to withdraw consent at any time, where processing is based on consent.</li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. To exercise any of these rights, please contact us at <a href="mailto:contact@datascrive.com">contact@datascrive.com</a>. We will respond within 30 days.</p>
+
+          <h2 id="cookies">Cookies</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Our website uses cookies and similar tracking technologies to improve the browsing experience and understand how visitors interact with our content. You may disable cookies through your browser settings, although this may affect the functionality of certain parts of the site.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We use analytics cookies (e.g., Google Analytics 4) to collect aggregated, anonymised data about site usage. We do not use advertising cookies or cross-site tracking on this website.</p>
+
+          <h2 id="security">Security</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We take reasonable technical and organisational measures to protect your personal data against unauthorised access, loss, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+          <h2 id="contact">Contact us</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you have any questions or concerns about this Privacy Policy, or wish to exercise your rights, please contact us:</p>
+          <ul>
+            <li><strong>Email:</strong> <a href="mailto:contact@datascrive.com">contact@datascrive.com</a></li>
+            <li><strong>Location:</strong> Hamilton, Ontario, Canada</li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect any changes. Continued use of our website after changes are posted constitutes acceptance of the revised policy.</p>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container foot-inner">
+      <span class="foot-logo" aria-label="DataScrive">Data<em>Scrive</em></span>
+      <span style="font-size: 12.5px; letter-spacing: .04em;">© 2026 DataScrive · Analytics for businesses that need answers.</span>
+      <div class="foot-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

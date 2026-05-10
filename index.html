@@ -1541,14 +1541,7 @@
       'calendly.event_scheduled': 'booking_completed'
     };
     window.addEventListener('message', function(e) {
-      // DIAGNOSTIC: log every postMessage so we can see what Calendly actually sends.
-      // Remove this block once tracking is confirmed working.
-      try {
-        console.log('[postMessage]', { origin: e.origin, data: e.data });
-      } catch (_) {}
-
       if (!e.data) return;
-      // Calendly may send data as object or as a JSON string — handle both.
       var data = e.data;
       if (typeof data === 'string') {
         try { data = JSON.parse(data); } catch (_) { return; }
@@ -1557,7 +1550,6 @@
       if (data.event.indexOf('calendly.') !== 0) return;
 
       var raw = data.event;
-      console.log('[calendly]', raw, data.payload || {});
       var mapped = CALENDLY_EVENT_MAP[raw] || 'booking_calendly_event';
       window.dataLayer.push({
         event: mapped,

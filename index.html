@@ -1040,6 +1040,8 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     }
   </style>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -1056,8 +1058,8 @@
         <a href="#faqs">FAQs</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a href="https://calendly.com/contact-datascrive/30min" target="_blank" rel="noopener" class="nav-cta">
-        Book a Call
+      <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contact-datascrive'}); trackBookingCTA('nav_book_call'); return false;" class="nav-cta">
+        Book a Free Call
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -1073,7 +1075,7 @@
         <p class="sub">DataScrive cleans up the analytics chaos behind your store or service business — so the numbers you look at every Monday actually answer the question you're asking.</p>
 
         <div class="cta-row">
-          <a href="https://calendly.com/contact-datascrive/30min" target="_blank" rel="noopener" class="btn">
+          <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contact-datascrive'}); trackBookingCTA('hero_book_free_call'); return false;" class="btn">
             Book a Free Call
             <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -1281,7 +1283,7 @@
           </div>
 
           <div class="svc-cta">
-            <a href="https://calendly.com/contact-datascrive/30min" target="_blank" rel="noopener" class="btn">
+            <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contact-datascrive'}); trackBookingCTA('foundation_card_book_call'); return false;" class="btn">
               Book a Free Call
               <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -1337,8 +1339,8 @@
           </div>
 
           <div class="svc-cta">
-            <a href="https://calendly.com/contact-datascrive/30min" target="_blank" rel="noopener" class="btn">
-              Add Pulse to your stack
+            <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/contact-datascrive'}); trackBookingCTA('pulse_card_book_call'); return false;" class="btn">
+              Book a Free Call
               <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -1516,6 +1518,51 @@
         if (qa.open) {
           document.querySelectorAll('.qa').forEach(o => { if (o !== qa) o.open = false; });
         }
+      });
+    });
+  </script>
+
+  <script>
+    // Helper: push CTA click events to dataLayer for GTM
+    window.dataLayer = window.dataLayer || [];
+    function trackBookingCTA(ctaName) {
+      window.dataLayer.push({
+        event: 'booking_cta_click',
+        cta_name: ctaName,
+        cta_destination: 'calendly_popup'
+      });
+    }
+
+    // Listen for Calendly postMessage events and forward them to dataLayer
+    var CALENDLY_EVENT_MAP = {
+      'calendly.profile_page_viewed': 'booking_profile_viewed',
+      'calendly.event_type_viewed': 'booking_calendar_opened',
+      'calendly.date_and_time_selected': 'booking_slot_selected',
+      'calendly.event_scheduled': 'booking_completed'
+    };
+    window.addEventListener('message', function(e) {
+      // DIAGNOSTIC: log every postMessage so we can see what Calendly actually sends.
+      // Remove this block once tracking is confirmed working.
+      try {
+        console.log('[postMessage]', { origin: e.origin, data: e.data });
+      } catch (_) {}
+
+      if (!e.data) return;
+      // Calendly may send data as object or as a JSON string — handle both.
+      var data = e.data;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch (_) { return; }
+      }
+      if (typeof data !== 'object' || typeof data.event !== 'string') return;
+      if (data.event.indexOf('calendly.') !== 0) return;
+
+      var raw = data.event;
+      console.log('[calendly]', raw, data.payload || {});
+      var mapped = CALENDLY_EVENT_MAP[raw] || 'booking_calendly_event';
+      window.dataLayer.push({
+        event: mapped,
+        calendly_event_raw: raw,
+        calendly_payload: data.payload || {}
       });
     });
   </script>

@@ -51,8 +51,14 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
+    html, body { margin: 0; padding: 0; overflow-x: clip; width: 100%; }
     html { scroll-behavior: smooth; }
+    body > header, body > nav, body > section, body > footer, body > main { width: 100%; }
+    img, svg, video { max-width: 100%; }
+    @media (max-width: 820px) {
+      html { scrollbar-width: none; }
+      html::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    }
 
     body {
       font-family: var(--font-sans);
